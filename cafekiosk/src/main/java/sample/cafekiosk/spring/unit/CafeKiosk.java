@@ -38,12 +38,19 @@ public class CafeKiosk {
         beverages.clear();
     }
 
-    public int calculateTotalPrice() {
-        int totalPrice = 0;
-        for (Beverage beverage : beverages) {
-            totalPrice += beverage.getPrice();
-        }
-        return totalPrice;
+    //tdd 로 변경
+//    public int calculateTotalPrice() {
+//        int totalPrice = 0;
+//        for (Beverage beverage : beverages) {
+//            totalPrice += beverage.getPrice();
+//        }
+//        return totalPrice;
+//    }
+
+    public int calculateTotalPrice(){
+       return beverages.stream()
+               .mapToInt(Beverage::getPrice)
+               .sum();
     }
 
     public Order createOrder(){
@@ -58,7 +65,6 @@ public class CafeKiosk {
     }
 
     public Order createOrder(LocalDateTime currentDateTime){
-//        LocalDateTime currentDateTime = LocalDateTime.now();
         LocalTime currentTime = currentDateTime.toLocalTime();
 
         if(currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME)){
@@ -67,4 +73,5 @@ public class CafeKiosk {
 
         return new Order(currentDateTime, beverages);
     }
+
 }
