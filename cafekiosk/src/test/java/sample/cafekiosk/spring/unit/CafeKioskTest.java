@@ -1,5 +1,6 @@
 package sample.cafekiosk.spring.unit;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.spring.unit.beverage.Americano;
 import sample.cafekiosk.spring.unit.beverage.Latte;
@@ -13,6 +14,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CafeKioskTest {
+
+    //given: 시나리오 진행에 필요한 모든 준비 과정
+    //when: 시나리오 행동 진행
+    //then: 시나리오 진행에 대한 결과 명시, 검증
+
     @Test
     void add_manual_test() {
         CafeKiosk cafeKiosk = new CafeKiosk();
@@ -22,6 +28,8 @@ class CafeKioskTest {
         System.out.println(">>> 담긴 음료: " + cafeKiosk.getBeverages().get(0).getName());
     }
 
+//    @DisplayName("음료 1개 추가 테스트")
+    @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
     @Test
     void add() {
 
@@ -32,6 +40,7 @@ class CafeKioskTest {
         assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
 
     }
+
 
     @Test
     //여러개 음료 더하기
@@ -88,8 +97,10 @@ class CafeKioskTest {
         assertThat(cafeKiosk.getBeverages()).isEmpty();
     }
 
+    @DisplayName("주문 목록에 담긴 상품들의 총 금액을 계산할 수 있다.")
     @Test
     void calculateTotalPrice() {
+        //given
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
         Latte latte = new Latte();
@@ -97,10 +108,14 @@ class CafeKioskTest {
         cafeKiosk.add(americano);
         cafeKiosk.add(latte);
 
+        //when
         int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        //then
         assertThat(totalPrice).isEqualTo(8500);
 
     }
+
 
     @Test
     void createOrder() {
@@ -127,6 +142,7 @@ class CafeKioskTest {
         assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
 
     }
+
 
     //예외테스트
     @Test
