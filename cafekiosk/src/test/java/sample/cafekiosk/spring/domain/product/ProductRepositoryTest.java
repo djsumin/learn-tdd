@@ -4,20 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
-import static org.junit.jupiter.api.Assertions.*;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 @ActiveProfiles("test")
 //@SpringBootTest
 @DataJpaTest
+//transactional 이 걸려있어서 자동 롤백
 class ProductRepositoryTest {
 
     @Autowired
@@ -97,7 +96,7 @@ class ProductRepositoryTest {
         productRepository.saveAll(List.of(product1, product2, product3));
 
         //when
-        List<Product> products = productRepository.findAllByProductNubmerIn(List.of("001", "002"));
+        List<Product> products = productRepository.findAllByProductNumberIn(List.of("001", "002"));
 
 
         //then
